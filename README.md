@@ -75,3 +75,4 @@ npm run build
 
 Field checks compare trajectory derivatives to the velocity field and verify incompressibility, inward motion, axial stretching, and differential rotation. Browser checks track the rendered centerline coordinates and changing vertex buffers, plus playback, deterministic scrubbing, replay, camera reset, image download, the About dialog, reduced motion, and mobile layout.
 # navier-stokes-visualization
+# navier-stokes-visualization
