@@ -64,13 +64,3 @@ Later trails remain visible farther along the upper and lower axial outflow, mak
 A deterministic clock maps the 32-second timeline to field time, so seeking restores exactly the same geometry. The display starts 20% into the longer model history, when a small number of blue filaments first become visible. The fixed teal → cyan → blue → ochre → orange palette uses local angular velocity at each material point. This model remains smooth throughout the animation and does **not** reproduce the paper's small-h similarity law or a singularity.
 
 The oscillatory corrections, forcing, pressure, viscosity dynamics, energy estimates, and proof verification are outside this visualization's scope. No quantitative physical measurements are claimed.
-
-## Verification
-
-```sh
-npx playwright install chromium
-npm test
-npm run build
-```
-
-Field checks compare trajectory derivatives to the velocity field and verify incompressibility, inward motion, axial stretching, and differential rotation. Browser checks track the rendered centerline coordinates and changing vertex buffers, plus playback, deterministic scrubbing, replay, camera reset, image download, the About dialog, reduced motion, and mobile layout.
