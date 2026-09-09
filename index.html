@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#080a0c" />
+    <meta name="description" content="An interactive study of inward spiraling, axial stretching, and vortex concentration, inspired by OpenAI’s Navier–Stokes illustration." />
+    <title>Vortex — a study in fluid motion</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpath d='M31 12C9-2 0 31 20 32c17 1 20-22 4-24-13-2-17 17-5 18 9 1 11-11 3-12' fill='none' stroke='%23478384' stroke-width='2.5' stroke-linecap='round'/%3E%3C/svg%3E" />
+  </head>
+  <body>
+    <header class="header">
+      <a class="wordmark" href="./" aria-label="Vortex study home">
+        <svg viewBox="0 0 40 40" fill="none" aria-hidden="true"><path d="M31 12C9-2 0 31 20 32c17 1 20-22 4-24-13-2-17 17-5 18 9 1 11-11 3-12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        Vortex<span class="wordmark-divider"></span><span class="wordmark-sub">A study in fluid motion</span>
+      </a>
+      <button class="text-button" id="about-button">About this study <span aria-hidden="true">↗</span></button>
+    </header>
+
+    <main>
+      <div id="scene" role="img" aria-label="Animated three-dimensional vortex. Teal outer strands spiral inward into a faster blue and orange core, then flow upward and downward. Drag to rotate, scroll to zoom."></div>
+      <div class="loading" id="loading">Tracing the flow<span>…</span></div>
+
+      <section class="intro" aria-labelledby="title">
+        <p class="eyebrow"><span class="status-dot"></span> NAVIER–STOKES / A VISUAL STUDY</p>
+        <h1 id="title">The shape<br />of a singularity.</h1>
+        <p class="intro-copy">A fluid spirals inward, spins faster,<br class="desktop-break" /> and stretches along its axis.<br class="desktop-break" /> Follow the motion into the core.</p>
+        <div class="legend" aria-label="Color indicates angular rotation, from slower teal through blue to faster orange">
+          <div class="legend-heading">ANGULAR ROTATION</div>
+          <div class="legend-gradient"></div>
+          <div class="legend-labels"><span>Slower</span><span>Faster</span></div>
+        </div>
+      </section>
+
+      <section class="equations" id="equations" aria-label="Navier–Stokes equations and blow-up mechanism">
+        <div class="equation-callout" id="equation-motion">
+          <span class="equation-tag">MOTION BALANCE · ACTUAL EQUATION</span>
+          <span class="math">∂<sub>t</sub>u + (u · ∇)u − νΔu + ∇p = f</span>
+          <span class="equation-meaning">Acceleration, transport, viscosity and pressure balance a smooth force.</span>
+        </div>
+        <i class="equation-leader" id="leader-motion"></i>
+        <div class="equation-callout left-callout" id="equation-core">
+          <span class="equation-tag">INCOMPRESSIBILITY + CORE SHAPE</span>
+          <span class="math">∇ · u = 0&nbsp;&nbsp;·&nbsp;&nbsp; ℓ<sub>r</sub> ≍ τ<sup>1/2</sup>&nbsp;&nbsp; ℓ<sub>z</sub> ≍ τ<sup>1/2−h</sup></span>
+          <span class="equation-meaning">Radial inflow is balanced by axial outflow; the core becomes slender.</span>
+        </div>
+        <i class="equation-leader" id="leader-core"></i>
+        <div class="equation-callout" id="equation-blowup">
+          <span class="equation-tag">WHY SMOOTHNESS BREAKS · τ = 1 − t → 0</span>
+          <span class="math blowup">|u<sub>θ</sub>|, |u<sub>z</sub>| ≍ τ<sup>−1/2−h</sup> → ∞</span>
+          <span class="equation-meaning">Peak velocity diverges at t = 1 while shrinking volume keeps energy finite.</span>
+        </div>
+        <i class="equation-leader" id="leader-blowup"></i>
+      </section>
+
+      <div class="annotations" id="annotations" aria-hidden="true">
+        <div class="annotation" id="inward-label"><span class="annotation-dot"></span><span>Inward spiral</span><i></i></div>
+        <div class="annotation" id="axial-label"><span class="annotation-dot"></span><span>Axial stretching</span><i></i></div>
+        <div class="annotation" id="core-label"><span class="annotation-dot orange"></span><span>Faster core</span><i></i></div>
+      </div>
+
+      <aside class="stage-note" aria-live="polite" aria-atomic="true">
+        <span class="stage-number" id="stage-number">01 / 04</span>
+        <h2 id="stage-title">Smooth forcing starts the flow</h2>
+        <p id="stage-description">A smooth external force accelerates fluid from rest.<br />The first material trajectories become visible.</p>
+      </aside>
+
+      <div class="view-tools">
+        <span class="orbit-hint"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><ellipse cx="10" cy="10" rx="8" ry="3.4" stroke="currentColor"/><path d="M10 2v16M8 4l2-2 2 2" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg> Drag to explore</span>
+        <button class="field-toggle" id="vector-field" type="button" aria-label="Show 3D vector field" aria-pressed="false" title="Show 3D vector field"><svg viewBox="0 0 24 20" fill="none" aria-hidden="true"><path d="M2 5h7m-3-3 3 3-3 3M13 4l5 3m-5 0 5-3M4 14h7m-3-3 3 3-3 3M15 12l5 3m-5 0 5-3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Vector field</span></button>
+        <button class="icon-button" id="reset-view" aria-label="Reset camera" title="Reset camera"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 8a6.5 6.5 0 1 1 .2 5M4 3v5h5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button class="icon-button" id="save-image" aria-label="Save image" title="Save image"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 2v10m-4-4 4 4 4-4M3 13v4h14v-4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button class="icon-button" id="fullscreen" aria-label="Enter full screen" title="Full screen"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M7 3H3v4m10-4h4v4M3 13v4h4m10-4v4h-4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </div>
+
+      <section class="playback" aria-label="Animation controls">
+        <button class="play-button" id="play" aria-label="Pause animation"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M6 4h3v12H6zm5 0h3v12h-3z" fill="currentColor"/></svg></button>
+        <div class="timeline">
+          <div class="timeline-heading"><label for="evolution">Vortex evolution</label><span id="progress-label">00%</span></div>
+          <input type="range" id="evolution" min="0" max="1000" value="0" aria-valuetext="0 percent, early flow" />
+          <div class="timeline-labels"><span>Smooth forcing</span><span>Radial inflow</span><span>Vortex stretching</span><span>Velocity growth</span></div>
+        </div>
+        <div class="playback-divider"></div>
+        <button class="speed-button" id="speed" aria-label="Playback speed: 1 times">1×</button>
+        <button class="icon-button" id="replay" aria-label="Replay animation" title="Replay"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 6a6 6 0 1 1-1 6M5 2v4h4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </section>
+
+      <footer class="footer"><p>Inspired by <a href="https://openai.com/index/navier-stokes-solution/" target="_blank" rel="noopener noreferrer">OpenAI’s Navier–Stokes illustration <span aria-hidden="true">↗</span></a></p><span>Explanatory animation · Geometry and time are illustrative</span></footer>
+    </main>
+
+    <dialog id="about-dialog" aria-labelledby="about-title">
+      <button id="close-about" class="icon-button dialog-close" aria-label="Close about"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="m5 5 10 10M15 5 5 15" stroke="currentColor" stroke-width="1.3"/></svg></button>
+      <p class="eyebrow">BEHIND THE VISUALIZATION</p>
+      <h2 id="about-title">A picture of the motion.</h2>
+      <p>This study brings the composition of OpenAI’s vortex illustration into motion: a broad teal inflow, blue spirals, and an orange core flowing in both axial directions.</p>
+      <p>Each strand is a trajectory trail. It begins as one point, then grows behind a leading tip carried by the three-dimensional, incompressible velocity field. Once the trail reaches its maximum history length, its tail advances along the same path.</p>
+      <p>New strands enter near the middle as older ones leave along the axis. As the timeline advances, the swirl core and the region supplying new strands narrow. Color follows each point’s angular rotation about the axis; it does not represent temperature or total speed.</p>
+      <p>The optional vector field samples that same velocity function at fixed points throughout the visible flow volume. The arrows rotate in place and grow brighter and longer as the field evolves. Their lengths are capped so they remain legible without covering the strands.</p>
+      <p>This is an explanatory animation, not a numerical reconstruction of the proof. The timing, profiles, colors, and aspect ratios are illustrative. The fine oscillatory corrections in the full construction are omitted, and the animation ends before a singularity.</p>
+      <p>In the paper, with τ = 1 − t and 0 &lt; h &lt; 1/100, the core scales as ℓ<sub>r</sub> ≍ τ<sup>1/2</sup> and ℓ<sub>z</sub> ≍ τ<sup>1/2−h</sup>, while characteristic azimuthal and axial speeds scale as τ<sup>−1/2−h</sup>. Its energy is of order τ<sup>1/2−3h</sup>, so it can remain bounded even while peak velocity diverges.</p>
+      <div class="about-links"><a href="https://openai.com/index/navier-stokes-solution/" target="_blank" rel="noopener noreferrer">Read the research ↗</a><a href="https://github.com/openai/NavierStokesAndEuler" target="_blank" rel="noopener noreferrer">Explore the formalization ↗</a></div>
+    </dialog>
+    <div id="toast" role="status"></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
