@@ -111,7 +111,7 @@ test('renders the vortex and makes evolution, playback, camera, and export usabl
   expect((await state()).progress).toBeLessThan(0.1);
   await page.getByRole('button', { name: 'Playback speed: 1 times', exact: true }).click();
   expect((await state()).speed).toBe(2);
-  await page.getByRole('button', { name: 'About this study' }).click();
+  await page.getByRole('button', { name: 'About this visualization' }).click();
   await expect(page.getByRole('dialog')).toBeVisible();
   expect((await state()).playing).toBe(false);
   await page.keyboard.press('Escape');
@@ -127,7 +127,7 @@ test('fits a mobile viewport and respects reduced motion', async ({ page }, test
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
   await seek(page, 280);
   await page.screenshot({ path: testInfo.outputPath('mobile.png'), fullPage: true });
-  await page.getByRole('button', { name: 'About this study' }).click();
+  await page.getByRole('button', { name: 'About this visualization' }).click();
   await expect(page.getByRole('dialog')).toBeVisible();
   await page.getByRole('button', { name: 'Close about' }).click();
   expect(await page.evaluate(() => window.vortexStudy.getState().playing)).toBe(false);

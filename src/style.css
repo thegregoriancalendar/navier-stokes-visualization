@@ -27,3 +27,4 @@
 .equation-meaning{font-size:10.4px}
 @media(max-width:1000px){.annotation{font-size:11.7px}.equation-tag{font-size:7.8px}.equation-callout .math{font-size:13px}.equation-meaning{font-size:9.1px}}
 @media(max-width:680px){.equation-tag{font-size:6.5px}.equation-callout .math{font-size:10.4px}}
+.header{justify-content:flex-end;border-bottom:0}
